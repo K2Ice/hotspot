@@ -1,0 +1,45 @@
+.auth-modal{
+  text-align: center;
+  position: absolute;
+  width: 33%;
+  min-height: 70vh;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 15%;
+  border: 2px solid #7d1e4f;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 40px;
+
+  .close-btn{
+    position: absolute;
+    right: 10%;
+    padding: 2px;
+  }
+
+  h2{
+    margin-top: 20px;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+
+
+    input{
+      margin-top: 10px;
+      padding: 7px;
+
+      &[type="submit"]{
+        align-self: center;
+        width: 30%;
+        background-color: #7d1e4f;
+        color: white;
+        border: none;
+        padding: 20px;
+        font-weight: 800;
+        border-radius: 20px;
+      }
+    }
+  }
+}

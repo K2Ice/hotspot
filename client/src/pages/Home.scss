@@ -1,0 +1,54 @@
+@import url('http://fonts.cdnfonts.com/css/intro');
+
+
+.home-wrapper{
+  background: url("../pic/logo-layer.svg");
+  text-align: center;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+  span{
+    display: block;
+    font-size: 85px;
+    text-transform: uppercase;
+    font-family: 'Intro Demo', sans-serif;
+    color: #7d1e4f;
+    letter-spacing: -10px;
+
+  }
+
+  .btn-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button:disabled{
+      background-color: #999;
+    }
+    .log-btn{
+      margin-top: 20px;
+      background-color: #7d1e4f;
+      color: white;
+      padding: 20px 40px;
+      text-transform: uppercase;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 20px;
+      &:hover{
+        cursor: pointer;
+    }
+  }
+
+    .create-btn{
+      margin-top: 10px;
+      border: none;
+      background-color: transparent;
+      &:hover{
+        cursor: pointer;
+        text-decoration: underline;    
+      }
+    }
+  }
+
+}
