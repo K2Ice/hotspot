@@ -9,8 +9,6 @@ import OnBoarding from './pages/OnBoarding';
 
 import "./App.scss"
 
-
-
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
@@ -21,11 +19,9 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          {true && <Route path="/dashboard" element={<Dashboard/>}/>}
+          {authToken && <Route path="/dashboard" element={<Dashboard/>}/>}
           {authToken && <Route path="/onboarding" element={<OnBoarding/>}/>}
           {authToken && <Route path="/chat" element={<ChatContainer/>}/>}
-          
-          APP
         </Routes>
       </Router>
     </div>

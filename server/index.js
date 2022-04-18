@@ -4,11 +4,12 @@ const {v4 : uuidv4} = require('uuid')
 const jwt = require('jsonwebtoken')
 const cors = require('cors');
 const bcrypt = require('bcrypt')
+require('dotenv').config()
 
 
 const port = process.env.PORT || 8000;
 
-const uri = 'mongodb+srv://konrad62640:testpassword@hotspot.vrzxq.mongodb.net/Hotspot?retryWrites=true&w=majority';
+const uri = process.env.URI
 
 
 const app = express();
@@ -92,9 +93,7 @@ app.post('/signup', async (req, res)=>{
 
 app.get('/gendered-users', async (req, res)=> {
 
-  const gendered = req.query.gender;
-
-  console.log(gendered)
+  const gender = req.query.gender;
 
   const client = new MongoClient(uri)
   try{
@@ -111,6 +110,40 @@ app.get('/gendered-users', async (req, res)=> {
   }
 })
 
+app.get('/users', async (req, res)=>{
+  
+  const client = new MongoClient(uri)
+
+  const userIds = JSON.parse(req.query.userIds)
+
+
+  try{
+    await client.connect();
+    const database = client.db('app-data');
+    const users = database.collection('users');
+
+    const pipeline = [
+      {
+        '$match':{
+          'user_id':{
+            '$in': userIds
+          }
+        }
+      }
+    ]
+
+    const foundUsers = await users.aggregate(pipeline).toArray();
+
+    res.send(foundUsers)
+  }
+    catch(error){
+      console.log(error)
+    }
+  finally{
+    await client.close()
+  }
+
+})
 
 app.get('/user', async (req, res)=>{
 
@@ -136,11 +169,8 @@ app.get('/user', async (req, res)=>{
   }
 })
 
-
-
-
 app.put('/user', async (req, res) => {
-
+  
   const client = new MongoClient(uri);
 
   const formData = req.body.formData;
@@ -177,6 +207,84 @@ app.put('/user', async (req, res) => {
     await client.close()
   }
 
+})
+
+app.put('/addMatch', async (req, res)=>{
+
+  const {userId, swipedUserId} = req.body;
+
+  const client = new MongoClient(uri);
+
+  try{
+    await client.connect();
+    const database = client.db('app-data');
+    const users = database.collection('users');
+
+    const query = {user_id: userId}
+
+    const updateDocument = {
+      $push:{matches: {user_id: swipedUserId }}
+    }
+    
+    const user = await users.updateOne(query, updateDocument)
+
+
+    res.send(user)
+
+  } catch(error){
+    console.log(error)
+  } finally{
+    await client.close();
+  }
+})
+
+app.get('/messages', async (req, res)=>{
+  const client = new MongoClient(uri);
+
+  const {userId, correspondingUserId} = req.query;
+
+  try{
+    await client.connect();
+    const database = client.db('app-data');
+    const messages = database.collection('messages');
+
+    const query = {
+      from_userId: userId,
+      to_userId: correspondingUserId
+    }
+
+    const foundMessages = await messages.find(query).toArray();
+
+    res.send(foundMessages)
+
+
+  } catch(error){
+    console.log(error)
+  }
+  finally{
+    await client.close()
+  }
+})
+
+app.post('/message', async (req, res)=>{
+  const client = new MongoClient(uri);
+
+  const message = req.body.message;
+
+  try{
+    await client.connect();
+    const database = client.db('app-data');
+    const messages = database.collection('messages');
+
+    const insertedMessage = await messages.insertOne({message})
+
+    res.send(insertedMessage)
+
+  } catch(error){
+    console.log(error)
+  }finally{
+    await client.close()
+  }
 })
 
 app.listen(port, (console.log(`Server is listening at port ${port}`)))

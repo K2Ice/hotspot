@@ -11,6 +11,7 @@ const AuthModal = ({isSignUp, setShowModal}) => {
   const [password, setPassWord] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
+  
   const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
   let navigate = useNavigate()
@@ -21,6 +22,7 @@ const AuthModal = ({isSignUp, setShowModal}) => {
   const handleSubmit = async (e)=>{
     e.preventDefault()
     try{
+      
       if(isSignUp && (password !== confirmPassword)){
         setError("Podane hasła nie są jednakowe")
         return

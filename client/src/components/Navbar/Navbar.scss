@@ -9,6 +9,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 99;
 }
 
 .navbar-container > ul{
@@ -17,9 +18,10 @@
   align-items: center;
   list-style: none;
   background-color: #8b1f52;
+
 }
 
-.navbar-container > ul li{
+.navbar-container > ul li {
   padding: 15px;
   margin: 0 20px;
   width: 80px;

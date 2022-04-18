@@ -1,11 +1,15 @@
+@import url(//db.onlinewebfonts.com/c/9b62dc86f936227b3f7b367bd0b6c05e?family=Tw+Cen+MT);
+
+
 .swipe {
   position: absolute;
+  overflow: hidden;
 }
 
 .cardContainer {
   position: absolute;
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -13,9 +17,22 @@
   position: relative;
   background-color: #fff;
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #8b1f52;
+  box-shadow: 0px -10px 100px 200px #8b1f52, 0px -10px 180px 185px #83204b;
+
 }
 
 .cardContent {
@@ -25,17 +42,31 @@
 
 .card h3 {
   position: absolute;
-  bottom: 100px;
+  bottom: 150px;
   margin-left: 65px;
   color: #fff;
-  font-size: 68px;
+  font-size: 100px;
+  z-index: 2;
+  font-family: 'Tw Cen MT', sans-serif;
+}
+
+.card p {
+  position: absolute;
+  bottom: 120px;
+  margin-left: 70px;
+  color: #fff;
+  font-size: 35px;
+  z-index: 2;
+  font-family: 'Tw Cen MT', sans-serif;
+
 }
 
 .gps-bar{
   display: flex;
   left: 50%;
   transform: translateX(-50%);
-  padding: 10px;  
+  padding: 10px;
+  padding-bottom: 15px;  
   justify-content: space-between;
   align-items: flex-end;
   position: absolute;
@@ -46,15 +77,22 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 
+  span{
+    display: flex;
+    align-items: center;
+  }
+
   .icon{
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 50%);
     border-radius: 100px;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
+    padding: 10px;
     background-color: #fff;
+    filter: grayscale(1);
     img{
       width: 100%;
       height: 100%;
